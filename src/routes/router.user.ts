@@ -1,14 +1,19 @@
 import {Router} from 'express';
-import { deleteUser, getUser, updateUser } from '../controllers/user.controller';
+import { deleteUser, getUser, getUsers, updateUser } from '../controllers/user.controller';
+import { authCookie } from '../middlewares/authCookie';
 
 const router=Router();
 
 
 
-router.get('/users/:id',getUser);
+router.get('/:id',authCookie,getUser);
 
-router.put('/users/:id',updateUser)
-router.delete('/users/:id',deleteUser);
+router.get('/',authCookie,getUsers);
+
+
+router.put('/:id',authCookie,updateUser)
+
+router.delete('/:id',authCookie,deleteUser);
 
 
 
