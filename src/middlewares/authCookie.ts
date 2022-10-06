@@ -2,19 +2,24 @@ import {sign} from '../index'
 import jwt from 'jsonwebtoken'
 import { NextFunction, Request, Response } from 'express';
 
+interface JwtPayload {
+    id: Number;
+    email:string;
+}
+
 export const authCookie=async(req:Request,res:Response,next:NextFunction)=>{
         try {
            const tokenCookie= req.cookies.authCookie;
 
            if(!tokenCookie ) return res.status(400).json({msg:"bad Request token its required"})
             
-            const verify=jwt.verify(tokenCookie,sign)
+            const {id, email}:any=jwt.verify(tokenCookie,sign) as JwtPayload
 
-            if(!verify)  return res.status(400).json({msg:"access denied wrog users credentials"})
+            if(!id || !email)  return res.status(400).json({msg:"access denied wrog users credentials"})
 
-            
-            req.id=verify.id
-            req.email=verify.email
+           
+            req.id=id
+            req.email=email
                
  
             next();

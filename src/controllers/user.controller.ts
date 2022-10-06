@@ -1,3 +1,4 @@
+import { Console } from 'console'
 import { Request, Response } from 'express'
 import {deleteUserService, getUserService, getUsersService, updateUserService} from '.././services/userServices'
 
@@ -35,23 +36,26 @@ export const updateUser =async(req:Request,res:Response)=>{
        if(id != req.id) return res.status(400).json({msg:"permission denied"})
 
         const body={
-            email:req.body.email,
-            username:req.body.username,
-            password:req.body.password
+            email:req.body.email || null,
+            username:req.body.username || null,
+            password:req.body.password || null
         }
-        const dataUser={}
+       
+        let data={}
 
- 
+       let filter=Object.entries( body).filter( i=> {
+        if(i[1] != null){
+            data[i[0]]=i[1]
+        }})
 
-       console.log(dataUser)
 
+    
+        const userUpated = await updateUserService(id,data);
+        if (!userUpated) return res.status(400).json({ msg: "failed delete" });
 
-
-
-       // const userUpated=await updateUserService(dataUser)
-        //if(!userUpated) return res.status(400).json({msg:"failed delete"})
-
-       // return res.status(202).json({msg:"user deleted sucessfully" , userUpated})
+        return res
+          .status(202)
+          .json({ msg: "user deleted sucessfully", userUpated });
          
 
     } catch (error) {

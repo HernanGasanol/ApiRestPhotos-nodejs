@@ -55,13 +55,14 @@ export const deleteUserService = async (id:number) => {
 };
 
 
-export const updateUserService = async({}) => {
+export const updateUserService = async(id:number,data:{}) => {
     
-    /*try {
+    try {
         const userDeleted = await prisma.user.update({
           where: {
             id: id,
-          },
+          }
+          
         });
     
         if (!userDeleted) return false;
@@ -70,6 +71,6 @@ export const updateUserService = async({}) => {
       } catch (e) {
         return false;
       }
-  */
+  
 
 }

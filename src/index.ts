@@ -6,14 +6,18 @@ import authRouter from './routes/router.auth'
 import photoRouter from './routes/photo.router';
 import cookieParser from 'cookie-parser'
  
+
 declare global {
-    namespace Express {
-      interface Request {
-        id:number;
-        email:string; 
-      }
+  namespace Express {
+    interface Request {
+      id:any
+      email:any
     }
   }
+
+
+}
+  
 
 const app= express();
 
@@ -43,8 +47,6 @@ app.use("/photo",photoRouter);
 
 
 
-
-console.log(process.env.SIGN)
 
 app.listen(process.env.PORT,()=>{ console.log("running")});
 
