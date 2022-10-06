@@ -20,3 +20,11 @@ export interface userLogged{
   }
 
 
+
+  export interface userDataUpdate{
+    username?:string
+    email?:string
+    password?:string | number
+  
+  }
+  

@@ -38,8 +38,6 @@ app.use(cookieParser())
 
 //routes
 
-
-
 app.use("/api/auth",authRouter);
 app.use("/api/users",userRouter);
 app.use("/photo",photoRouter);

@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client"
 import prisma from '.././prismaClient'
+import { userDataUpdate } from "../interfaces/user";
 
 
 export const getUserService = async(id:number) => {
@@ -54,15 +55,17 @@ export const deleteUserService = async (id:number) => {
   }
 };
 
-
-export const updateUserService = async(id:number,data:{}) => {
+export const updateUserService = async(id:number,userData:userDataUpdate  ) => {
     
     try {
         const userDeleted = await prisma.user.update({
           where: {
-            id: id,
+            id: id
+          },
+          data:{ 
+            ...userData
           }
-          
+
         });
     
         if (!userDeleted) return false;

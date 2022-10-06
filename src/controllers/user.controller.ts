@@ -1,5 +1,6 @@
 import { Console } from 'console'
 import { Request, Response } from 'express'
+import { userDataUpdate } from '../interfaces/user'
 import {deleteUserService, getUserService, getUsersService, updateUserService} from '.././services/userServices'
 
 
@@ -27,6 +28,7 @@ export const getUser =async(req:Request,res:Response)=>{
 }
 
 
+
 export const updateUser =async(req:Request,res:Response)=>{
     
     try {
@@ -51,11 +53,9 @@ export const updateUser =async(req:Request,res:Response)=>{
 
     
         const userUpated = await updateUserService(id,data);
-        if (!userUpated) return res.status(400).json({ msg: "failed delete" });
+        if (!userUpated) return res.status(400).json({ msg: "failed update" });
 
-        return res
-          .status(202)
-          .json({ msg: "user deleted sucessfully", userUpated });
+        return res.status(202).json({ msg: "user updated sucessfully", userUpated });
          
 
     } catch (error) {
